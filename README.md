@@ -28,7 +28,7 @@ H5端效果展示
 git clone git@github.com:tansentcn/todos-uni-app.git
 ```
 
-> 使用[dcloud](https://www.dcloud.io/)编辑器
+> 使用[HBuilderX](https://www.dcloud.io/hbuilderx.html)编辑器
 
 ## 关于
 仅供学习使用。
