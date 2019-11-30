@@ -17,11 +17,11 @@ Todo —— 专注要做的事。
   - ……
 
 ## 项目界面
-遗憾的是没有把鼠标录进去
-H5端效果展示
-![H5](https://api.tansent.top/assets/todo-h5.gif)
-微信小程序端效果展示
-![Wechat](https://api.tansent.top/assets/todo-wechat.gif)
+遗憾的是没有把鼠标录进去  
+H5端效果展示  
+![H5](https://api.tansent.top/assets/todo-h5.gif)  
+微信小程序端效果展示  
+![Wechat](https://api.tansent.top/assets/todo-wechat.gif)  
 ## 使用项目
 克隆/下载
 ```
