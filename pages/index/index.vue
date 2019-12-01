@@ -16,7 +16,7 @@
 		<view class="todoList">
 			<view v-if="todoList.length == 0" style="text-align: center;">You have nothing todo</view>
 			<view v-else>
-				<view v-for="(item,index) in todoList" :key="index" class="todoItem" @tap="finishTodo(index)">
+				<view v-for="(item,index) in todoList" :key="index" class="todoItem" @tap="changeTodoStatus(index)">
 					<view class="index">
 						{{index + 1}}
 					</view>
@@ -42,83 +42,61 @@
 </template>
 
 <script>
+	import { mapState, mapActions } from 'vuex'
+	
 	export default {
 		data() {
 			return {
-				todoList: [{
-					time: 1551334252272,
-					msg: "第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条",
-					finished: false
-				}, {
-					time: 1551334252272,
-					msg: "第二条",
-					finished: true
-				}],
 				delStyle: "text-decoration-line: line-through;",
 				showed:false,
 				msg: ""
 			}
 		},
 		onLoad() {
-
+			console.log(this)
 		},
 		computed:{
+			...mapState(['todoList']),
 			formatData(){
-				return function(time){
-					return this.formatDataFn(time)
-				}
+				return time =>
+				new Date(time).toLocaleString()
 			}
 		},
 		methods: {
-			formatDataFn:function (time){
-				let timestamp = new Date(time);
-				let year=timestamp.getFullYear();  //取得4位数的年份
-				let month=timestamp.getMonth()+1;  //取得日期中的月份，其中0表示1月，11表示12月
-				let date=timestamp.getDate();      //返回日期月份中的天数（1到31）
-				let hour=timestamp.getHours();     //返回日期中的小时数（0到23）
-				let minute=timestamp.getMinutes(); //返回日期中的分钟数（0到59）
-				let second=timestamp.getSeconds(); //返回日期中的秒数（0到59）
-				return year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
-			},
-			finishTodo: function(index) {
-				console.log(this.todoList[index])
+			...mapActions(['addTodo','finishTodo','delTodo']),
+			changeTodoStatus: function(index) {
+				// console.log(this.todoList[index])
 				if (this.todoList[index].finished == false)
 					// 未完成的更改为已完成
-					this.$set(this.todoList[index], "finished", true);
+					// this.$set(this.todoList[index], "finished", true);
+					this.finishTodo(index)
 				// 将已完成的删除
-				else this.todoList.splice(index, 1);
-				
-				// 更新列表
-				// this.formatList()
+				else this.delTodo(index)
+
 			},
 			addNewTodo: function() {
-				let newTodo = {
-					time:Date.parse(new Date()),
-					msg:this.msg,
-					finished:false
-				}
-				this.todoList.splice(this.todoList.length,0,newTodo)
-				this.msg = ''
-				this.showed = false
-			},
-			formatList:function(){
-				for (let i = 0; i < this.todoList.length; i++) {
-					
-					if(this.todoList[i].finished ){
-						// 把已完成的放置到列表末尾
-						let item = this.todoList.splice(i,1)[0]
-						this.todoList.push(item)
-					}
-				}
+				 if(this.msg == ""){
+					 this.showed = false
+				 }else{
+					 let newTodo = {
+					 	time:Date.parse(new Date()),
+					 	msg:this.msg,
+					 	finished:false
+					 }
+					 this.addTodo(newTodo)
+				 }
+				 this.msg = ''
+				 this.showed = false
 			}
-			
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+
 	.content {
 		position: relative;
+		min-height: 100vh;
 
 		.title {
 			position: relative;
@@ -179,12 +157,7 @@
 				min-width: 30px;
 				text-align: center;
 
-				// &::before {
-				// 	display: inline-block;
-				// 	content: "";
-				// 	height: 100%;
-				// 	vertical-align: middle;
-				// }
+
 			}
 
 			.time {
@@ -208,8 +181,8 @@
 			.panel {
 				box-sizing: border-box;
 				position: absolute;
-				top: 50%;
-				left: 50%;
+				top: 50vh;
+				left: 50vw;
 				width: 80%;
 				z-index: 11;
 				transform: translate(-50%, -50%);
