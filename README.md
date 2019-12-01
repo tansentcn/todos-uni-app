@@ -23,15 +23,22 @@ H5端效果展示
 ![H5](https://api.tansent.top/assets/todo-h5.gif)  
 微信小程序端效果展示  
 ![Wechat](https://api.tansent.top/assets/todo-wechat.gif)  
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7ac737c5c2f61e57e52cfa41c444ba21c8f8700b
 ## 使用项目
 克隆/下载
 ```git
 git clone git@github.com:tansentcn/todos-uni-app.git
 ```
 
+<<<<<<< HEAD
 
 > 使用[dcloud](https://www.dcloud.io/)编辑器
+=======
+> 使用[HBuilderX](https://www.dcloud.io/hbuilderx.html)编辑器
+>>>>>>> 7ac737c5c2f61e57e52cfa41c444ba21c8f8700b
 
 ## 问题
 1. 项目加载vuex-persistedstate插件失败  
