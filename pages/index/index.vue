@@ -1,5 +1,8 @@
 <template>
 	<view class="content">
+		<view class="status_bar">
+			<!-- 这里是状态栏 -->
+		</view>
 
 		<view class="title">
 			<image class="logo" src="/static/logo.png"></image>
@@ -9,6 +12,10 @@
 
 			<!-- #ifdef MP-WEIXIN -->
 			<text>Todos on wechat</text>
+			<!-- #endif -->
+
+			<!-- #ifdef APP-PLUS -->
+			<text>Todos on App</text>
 			<!-- #endif -->
 
 		</view>
@@ -108,14 +115,17 @@
 </script>
 
 <style lang="scss" scoped>
-
+.status_bar {
+      height: var(--status-bar-height);
+      width: 100%;
+  }
 	.content {
 		position: relative;
 		min-height: 100vh;
 
 		.title {
 			position: relative;
-
+			height: 150px;
 			.logo {
 				position: absolute;
 				top: 50%;
