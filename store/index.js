@@ -2,19 +2,16 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // 状态持久化插件
-import createPersistedState from "vuex-persistedstate";
+// import createPersistedState from "vuex-persistedstate";
 
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-	plugins: [createPersistedState()],
+	// plugins: [createPersistedState()],
 	state: {
 		todoList: [],
 		unfinishedLength: 0
-	},
-	getters: {
-
 	},
 	mutations: {
 		addTodo(state, todo) {
@@ -38,6 +35,10 @@ const store = new Vuex.Store({
 				if (todoList[i].finished == true)
 					todoList.push(todoList.splice(i, 1)[0])
 			}
+		},
+		getLocalStorage(state, data) {
+			state.todoList = data.todoList
+			state.unfinishedLength = data.unfinishedLength
 		}
 	},
 	actions: {
@@ -51,6 +52,9 @@ const store = new Vuex.Store({
 		},
 		delTodo(context, index) {
 			context.commit('delTodo', index)
+		},
+		getLocalStorage(context, data) {
+			context.commit('getLocalStorage', data)
 		}
 	}
 })

@@ -56,14 +56,14 @@
 			console.log(this)
 		},
 		computed:{
-			...mapState(['todoList']),
+			...mapState(['todoList','unfinishedLength']),
 			formatData(){
 				return time =>
 				new Date(time).toLocaleString()
 			}
 		},
 		methods: {
-			...mapActions(['addTodo','finishTodo','delTodo']),
+			...mapActions(['addTodo','finishTodo','delTodo','getLocalStorage']),
 			changeTodoStatus: function(index) {
 				// console.log(this.todoList[index])
 				if (this.todoList[index].finished == false)
@@ -72,7 +72,10 @@
 					this.finishTodo(index)
 				// 将已完成的删除
 				else this.delTodo(index)
-
+				
+				uni.setStorageSync('keep-vuex',{
+					 ...mapState(['todoList','unfinishedLength'])
+				})
 			},
 			addNewTodo: function() {
 				 if(this.msg == ""){
@@ -87,6 +90,18 @@
 				 }
 				 this.msg = ''
 				 this.showed = false
+				 uni.setStorageSync('keep-vuex',{
+					 todoList:this.todoList,
+					 unfinishedLength:this.unfinishedLength
+				})
+			}
+		},
+		onLoad() {
+			// 读取数据
+			let localData = uni.getStorageSync('keep-vuex') || null
+			if(localData !== null){
+				// console.log(localData)
+				this.getLocalStorage(localData)
 			}
 		}
 	}
